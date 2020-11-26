@@ -1,0 +1,12 @@
+.git
+.vscode
+*Dockerfile*
+*docker-compose*
+node_modules
+storybook-static
+dist
+lib
+lib-temp
+scss
+types
+tests

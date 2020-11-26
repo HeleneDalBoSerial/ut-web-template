@@ -1,0 +1,137 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import LinkTo from "@storybook/addon-links/react";
+
+<Meta title="Design System/Introduction"/>
+
+# Introduction
+
+## Principales dépendances du projet
+
+- node 12.16.1
+- vue 2.6.11
+- vuetify 2.2.18
+- @vue/cli 4.2.2
+- [Material Design Icons](https://materialdesignicons.com/) via le package [@mdi/font](@mdi/font)
+
+## Prérequis
+
+Les composants présentés sur ce site s'appuient très fortement sur [Vuetify](https://vuetifyjs.com/en/introduction/guide/).
+Il est donc indispensable de comprendre le framework et de se référer à sa documentation.
+La documentation de ce site se concentre exclusivement sur ce qui est spécifique à Ugitech.
+
+## Utilisation
+
+### Initialiser un projet avec vue-cli
+
+```sh
+vue create my-app
+cd my-app
+vue add vuetify
+```
+
+Dans le fichier `public/index.html`, retirer ces 2 lignes:
+```html
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
+```
+
+### installation du package
+
+Avant d'installer le package, vous devez [configurer npm pour cibler votre registry privé](https://docs.microsoft.com/en-us/azure/devops/artifacts/get-started-npm?view=azure-devops&tabs=windows#set-up-your-npmrc-files)
+```sh
+npm i @ugitech/web-template
+```
+
+### Surcharge des [variables SASS](https://vuetifyjs.com/en/customization/sass-variables/) de Vuetify
+
+```js
+// src/styles/variables.scss
+
+@import '~@ugitech/web-template/scss/variables'
+```
+
+### Import des classes spécifiques "ut-*" et de la police Arial
+
+```js
+// src/App.vue
+
+<style lang="scss">
+@import '~@ugitech/web-template/scss/ugitech'
+</style>
+```
+
+### Définition du [thème](https://vuetifyjs.com/en/customization/theme/) Ugitech pour Vuetify
+```js
+// src/plugins/vuetify.js
+
+import Vue from "vue";
+import Vuetify from "vuetify/lib";
+import theme from "@ugitech/web-template/lib/util/colors";
+import { ThemeOptions } from 'vuetify/types/services/theme';
+
+Vue.use(Vuetify);
+
+export default new Vuetify({
+    theme: theme as ThemeOptions
+});
+```
+
+Si vous voulez personnaliser les thèmes vuetify vous pouvez aussi faire:
+```js
+// src/plugins/vuetify.js
+
+import Vue from "vue";
+import Vuetify from "vuetify/lib";
+import { primary, error } from "@ugitech/web-template/lib/util/colors";
+
+Vue.use(Vuetify);
+
+export default new Vuetify({
+    theme: {
+        themes: {
+            light: {
+                primary,
+                error,
+                success: '#4CAF50',
+            },
+        },
+    }
+});
+```
+
+### Installation des composants Vue
+
+Placez ces lignes quelque part avant l'instanciation de Vue (dans le fichier `main.js` par exemple):
+```js
+import WebTemplate from '@ugitech/web-template';
+
+Vue.use(WebTemplate);
+```
+
+### Utilisation du [runtime compiler](https://cli.vuejs.org/config/#runtimecompiler)
+
+Certains composants Vue utilisant l'option `template`, on doit paramétrer Vue comme suit:
+```js
+// vue.config.(js|json)
+{
+    ...,
+    "runtimeCompiler": true
+}
+```
+
+### Typescript (optionnel)
+
+- exécuter ```vue add typescript```
+- modifier `./tsconfig.json`: ajouter `"vuetify"` au tableau `"types"`
+- ajouter le fichier `src/shims-png.d.ts`:
+```ts
+declare module "*.png" {
+    const value: any;
+    export default value;
+}
+```
+
+### Utiliser le layout de base
+
+Voir <LinkTo kind="design-system-demo--utiliser-la-structure-de-base">layout de base</LinkTo>
+

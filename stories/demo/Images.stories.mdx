@@ -1,0 +1,88 @@
+import { Meta, Preview, Story } from "@storybook/addon-docs/blocks";
+import logoA2i from "@/assets/LogoA2iUgitech_FullRes.png"
+import ugitechLogo from '@/assets/ugitech.png'
+import ugitechByline from '@/assets/ugitech+byline.svg'
+import ugitechOriginal from '@/assets/ugitech-original.svg'
+import ugitechVariation from '@/assets/ugitech-variation.svg'
+
+<Meta title="Design System/Demo/Images"/>
+
+# Images
+
+Les images du package `@ugitech/web-template` présentées ci-dessous sont exploitables dans vos projets.
+
+## LogoA2iUgitech_FullRes.png
+
+```js
+import logoA2i from '@ugitech/web-template/src/assets/LogoA2iUgitech_FullRes.png'
+```
+
+<Preview>
+  <Story name="LogoA2iUgitech_FullRes.png" inline={true}>
+    {{
+      data: () => ({ src: logoA2i }),
+      template: `<img :src="src" width="100">`
+    }}
+  </Story>
+</Preview>
+
+
+## ugitech.png
+
+```js
+import ugitechLogo from '@ugitech/web-template/src/assets/ugitech.png'
+```
+
+<Preview>
+  <Story name="ugitech.png" inline={true}>
+    {{
+      data: () => ({ src: ugitechLogo }),
+      template: `<img :src="src" width="100">`
+    }}
+  </Story>
+</Preview>
+
+## ugitech+byline.svg
+
+```js
+import ugitechByline from '@ugitech/web-template/src/assets/ugitech+byline.svg'
+```
+
+<Preview>
+  <Story name="ugitech+byline.svg" inline={true}>
+    {{
+      data: () => ({ src: ugitechByline }),
+      template: `<img :src="src" width="100">`
+    }}
+  </Story>
+</Preview>
+
+## ugitech-original.svg
+
+```js
+import ugitechOriginal from '@ugitech/web-template/src/assets/ugitech-original.svg'
+```
+
+<Preview>
+  <Story name="ugitech-original.svg" inline={true}>
+    {{
+      data: () => ({ src: ugitechOriginal }),
+      template: `<img :src="src" width="100">`
+    }}
+  </Story>
+</Preview>
+
+## ugitech-variation.svg
+
+```js
+import ugitechVariation from '@ugitech/web-template/src/assets/ugitech-variation.svg'
+```
+
+<Preview>
+  <Story name="ugitech-variation.svg" inline={true}>
+    {{
+      data: () => ({ src: ugitechVariation }),
+      template: `<img :src="src" width="100">`
+    }}
+  </Story>
+</Preview>

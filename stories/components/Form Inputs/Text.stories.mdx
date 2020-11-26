@@ -1,0 +1,73 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { VTextField } from "vuetify/lib";
+
+<Meta
+  title="Design System/Composants/Formulaire/Texte"
+  component={VTextField}
+  decorators={[() => ({
+    template: '<div class="pa-2"><story/></div>'
+  })]}
+/>
+
+# Champ texte
+
+Veuillez vous référer à la [documentation](https://vuetifyjs.com/en/components/text-fields/#text-fields) complète de Vuetify
+
+## Style
+
+Pour l'apparence, on utilise les propriétés suivantes:
+- `filled`
+
+<Preview>
+  <Story name="Basique" inline={true} height="50">
+    {{
+      components: { VTextField },
+      template: `
+        <v-text-field label="Label" placeholder="Placeholder" filled></v-text-field>
+      `,
+    }}
+  </Story>
+</Preview>
+
+### Texte d'aide
+
+<Preview>
+  <Story name="Texte d\'aide" inline={true} height="50">
+    {{
+      components: { VTextField },
+      template: `
+        <v-text-field 
+          label="Url"
+          hint="www.example.com" 
+          persistent-hint
+          filled>
+        </v-text-field>
+      `,
+    }}
+  </Story>
+</Preview>
+
+### Erreur de validation
+
+<Preview>
+  <Story name="Erreur de validation" inline={true} height="50">
+    {{
+      components: { VTextField },
+      template: `
+        <v-text-field 
+          label="Label" 
+          counter="10"
+          :rules="[rules.required, rules.min]"
+          filled
+          clearable
+        ></v-text-field>
+      `,
+      data: () => ({
+        rules: {
+          required: value => !!value || 'Champ obligatoire',
+          min: v => v && v.length >= 5 || '5 caractères minimum',
+        },
+      })
+    }}
+  </Story>
+</Preview>

@@ -1,0 +1,46 @@
+import { Meta, Preview, Story } from "@storybook/addon-docs/blocks";
+import LinkTo from "@storybook/addon-links/react";
+import connexionComponent from './connexion-component'
+import dataComponent from './data-component'
+
+<Meta title="Design System/Demo"/>
+
+# Utiliser la structure de base
+
+Pour créer une application avec une structure de base, vous disposez des composants:
+
+- <LinkTo kind="design-system-composants-layout-utnavigationbar">
+    ut-navigation-bar
+  </LinkTo> (pour l'affichage en mode "kiosque")
+- <LinkTo kind="design-system-composants-layout-utappbar">ut-app-bar</LinkTo>
+- <LinkTo kind="design-system-composants-layout-utnavigationdrawer">ut-navigation-drawer</LinkTo>
+- <LinkTo kind="design-system-composants-layout-utconnectionlayout">ut-connection-layout</LinkTo>
+
+Ici on utilise `v-if` pour l'affichage conditionnel de la page de connexion.
+Pour naviguer entre les pages dans une application plus lourde, il est conseillé d'utiliser une solution plus robuste comme [vue-router](https://router.vuejs.org/)
+
+Dans l'exemple suivant:
+- Depuis la page de connexion, cliquez sur *Connexion*
+- Depuis la page de contenu, cliquez sur le bouton de déconnexion (à côté du nom de l'utilisateur)
+
+<Preview>
+  <Story
+    name="Utiliser la structure de base"
+    inline={true}
+    parameters={{ custom: { wrapWithVuetifyApp: false, fullHeight: true } }}
+  >
+    {() => connexionComponent}
+  </Story>
+</Preview>
+
+# Afficher des données
+
+<Preview>
+  <Story
+    name="Afficher des données"
+    inline={true}
+    parameters={{ custom: { wrapWithVuetifyApp: false, fullHeight: true } }}
+  >
+    {() => dataComponent}
+  </Story>
+</Preview>

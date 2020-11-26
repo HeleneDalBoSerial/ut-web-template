@@ -1,0 +1,78 @@
+.theme--light.v-text-field > .v-input__control > .v-input__slot::before {
+  border-color: #d8d8d8 !important;
+}
+
+.ut-input {
+  &.v-input--checkbox {
+    .v-icon:not(.primary--text) {
+      color: #000000 !important;
+    }
+
+    label {
+      color: #000000 !important;
+    }
+  }
+
+  &.v-radio {
+    .v-icon:not(.primary--text) {
+      color: #000000 !important;
+    }
+
+    label {
+      color: #000000 !important;
+    }
+  }
+
+  &.v-input--switch.v-input--switch--inset {
+    .v-input--selection-controls__input {
+      width: 36px;
+  
+      $ripple-transform: scale(0.8) translateX(-5px); 
+      .v-input--selection-controls__ripple {
+        &:before {
+          transform: $ripple-transform;
+        }
+
+        .v-ripple__container {
+          transform: $ripple-transform;
+        }
+      }
+    }
+
+    &:not(.v-input--is-dirty) {
+      .v-input--switch__track {
+        color: #000000 !important;
+      }
+    }
+
+    .v-input--switch__track {
+      top: calc(50% - 9px);
+      height: 18px;
+      width: 36px;
+      opacity: 1 !important;
+    }
+
+    label {
+      color: #000000 !important;
+    }
+
+    .v-input--switch__thumb {
+      top: calc(50% - 5px);
+      height: 10px;
+      width: 10px;
+      &.theme--light.primary--text {
+        color: #ffffff !important;
+      }
+    }
+  }
+}
+
+.v-application--is-ltr {
+  .ut-input.v-input--switch.v-input--switch--inset {
+    &.v-input--is-dirty {
+      .v-input--switch__thumb {
+        transform: translate(18px, 0) !important;
+      }
+    }
+  }
+}

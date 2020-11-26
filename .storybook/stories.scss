@@ -1,0 +1,12 @@
+@import '@/styles/ugitech';
+
+.ut-table-cell__nowrap {
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.custom__separator:not(:last-child):after {
+    content: "\0020-\0020";
+}

@@ -1,0 +1,59 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { VDialog, VCard, VCardTitle, VCardActions, VBtn } from "vuetify/lib";
+import { action } from "@storybook/addon-actions";
+
+<Meta title="Design System/Composants/Modal" component={VDialog} />
+
+# Modal
+
+Veuillez vous référer à la [documentation](https://vuetifyjs.com/en/components/dialogs/#modal) complète de Vuetify
+
+<Preview>
+  <Story name="Basique">
+    {{
+      components: { VDialog, VCard, VCardTitle, VCardActions, VBtn },
+      template: `
+        <div class="text-center">
+          <v-dialog
+            v-model="dialog"
+            width="500"
+          >
+            <template v-slot:activator="obj">
+              <v-btn
+                color="primary"
+                dark
+                v-on="obj.on"
+              >
+                Cliquer
+              </v-btn>
+            </template>
+            <v-card>
+              <v-card-title
+                class="headline"
+                primary-title
+              >
+                Titre de la modale
+              </v-card-title>
+              <v-card-text>
+                Je présente des informations à l'utilisateur à propos d'une tâche.
+                Je peux contenir plusieurs tâches, comme des choix à travers une liste,
+                ou bien présenter une décision à prendre.
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="primary"
+                  text
+                  @click="dialog = false"
+                >
+                  Accepter
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </div>
+      `,
+      data: () => ({ dialog: false })
+    }}
+  </Story>
+</Preview>

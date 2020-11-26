@@ -1,0 +1,30 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { VSlider } from "vuetify/lib";
+import { action } from "@storybook/addon-actions";
+
+<Meta title="Design System/Composants/Sliders" component={VSlider} />
+
+# Sliders
+
+Veuillez vous référer à la [documentation](https://vuetifyjs.com/en/components/sliders/#sliders) complète de Vuetify 
+
+<Preview>
+  <Story name="Basique" inline={true} height="50px">
+    {{
+      components: { VSlider },
+      template: `
+       <v-row justify="space-around">
+        <v-col cols="12">
+          <v-slider
+            v-model="min"
+            min="-100"
+            max="100"
+            label="Min"
+          ></v-slider>
+        </v-col>
+      </v-row>
+      `,
+      data: () => ({ min: 0 })
+    }}
+  </Story>
+</Preview>

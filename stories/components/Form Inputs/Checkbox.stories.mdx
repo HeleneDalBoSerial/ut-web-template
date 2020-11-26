@@ -1,0 +1,30 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { VCheckbox } from "vuetify/lib";
+
+<Meta
+  title="Design System/Composants/Formulaire/Checkbox"
+  component={VCheckbox}
+  decorators={[() => ({
+    template: '<div class="pa-2"><story/></div>'
+  })]}
+/>
+
+# Checkbox
+
+Veuillez vous référer à la [documentation](https://vuetifyjs.com/en/components/selection-controls/) complète de Vuetify 
+
+## Style
+
+On utilise la classe `ut-input` pour appliquer le style *Ugitech*
+
+<Preview>
+  <Story name="Basique" inline={true} height="200px">
+    {{
+      components: { VCheckbox },
+      template: `
+        <v-checkbox v-model="mandatory" class="mx-2 ut-input" label="Mandatory"></v-checkbox>
+      `,
+      data: () => ({ mandatory: false })
+    }}
+  </Story>
+</Preview>

@@ -1,0 +1,174 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+import { UtAppBar } from '@/components/UtAppBar';
+import appImg from '@/assets/LogoA2iUgitech_FullRes.png';
+import LinkTo from "@storybook/addon-links/react";
+
+<Meta
+  title="Design System/Composants/Layout/UtAppBar"
+  component={UtAppBar}
+/>
+
+# UtAppBar
+
+Un assemblage de plusieurs composants:
+- [v-app-bar](https://vuetifyjs.com/en/components/app-bars/)
+- <LinkTo kind="design-system-composants-utappbartitle">ut-app-bar-title</LinkTo>
+- <LinkTo kind="design-system-composants-utappmenu">ut-app-menu</LinkTo>
+
+## API
+
+#### Props
+
+| Nom | Commentaires | Required |
+|---|---|---|
+| items | MenuItem[] (voir <LinkTo kind="design-system-composants-utappmenu">UtAppMenu</LinkTo>) | oui (peut être un tableau vide) |
+| username | Identifiant de l'utilisateur connecté | oui |
+| dark | application de la variante `dark` de Vuetify | oui |
+| website | Nom du site actuel (voir UtAppBarTitle) | oui |
+| page | Nom de la page actuelle (voir UtAppBarTitle) | oui |
+| logo | logo pour remplacer le logo par défaut | non |
+
+#### Slots
+
+| Nom | Commentaires |
+| --- | --- |
+| menuImg | image apparaissant dans le menu |
+
+#### Events
+
+| Nom | Commentaires |
+| --- | --- |
+| logout | émis quand on clique sur le bouton de déconnection |
+| navigate | émis quand on clique sur un lien de navigation |
+
+## Complet
+
+<Preview>
+  <Story name="Complet">
+    {{
+  components: { UtAppBar },
+  template: `
+    <ut-app-bar
+      :items="menuItems"
+      :username="username"
+      dark
+      @logout="logout"
+      @navigate="navigate"
+      website="Nom du site"
+      page="Titre de page 3"
+    >
+      <template v-slot:menuImg>
+        <img :src="appImg" width="40"/>
+      </template>
+    </ut-app-bar>
+  `,
+  data: () => ({
+    appImg,
+    username: 'Cyril Martinez',
+    menuItems: [
+      { title: 'Titre de page 1', path: 'example.com' },
+      { title: 'Titre de page 2' },
+      {
+        title: 'Ensemble de pages 1',
+        items: [
+          { title: 'Titre de page 3' },
+          { title: 'Titre de page 4' },
+        ],
+      },
+      { title: 'Titre de page 5' },
+    ],
+  }),
+  methods: {
+    logout: action('logout'),
+    navigate: action('navigate')
+  },
+}}
+</Story>
+</Preview>
+
+## Sans menu
+
+<Preview>
+  <Story name="Sans Menu">
+  {{
+    components: { UtAppBar },
+    template: `
+      <ut-app-bar
+        :items="[]"
+        :username="username"
+        dark
+        @logout="logout"
+        website="Nom du site"
+        page="Titre de page 3"
+      />
+    `,
+    data: () => ({
+      username: 'Cyril Martinez',
+    }),
+    methods: {
+      logout: action('logout'),
+    },
+  }}
+  </Story>
+</Preview>
+
+## Sans utilisateur connecté
+
+<Preview>
+  <Story name="Sans connection">
+  {{
+    components: { UtAppBar },
+    template: `
+      <ut-app-bar :items="[]" dark website="Nom du site" page="Titre de page 3"/>
+    `,
+  }}
+  </Story>
+</Preview>
+
+## Long texte
+
+<Preview>
+  <Story name="Long texte">
+  {{
+    components: { UtAppBar },
+    template: `
+      <ut-app-bar
+        :items="[]"
+        dark
+        @logout="logout"
+        username="Gabriel Longnomdefamille"
+        website="Nom du site à rallonge"
+        page="Très très long titre de page"/>
+    `,
+    methods: {
+      logout: action('logout'),
+    },
+  }}
+  </Story>
+</Preview>
+
+## Changer le logo
+
+<Preview>
+  <Story name="Changer le logo">
+  {{
+    components: { UtAppBar },
+    template: `
+      <ut-app-bar
+        :items="[]"
+        dark
+        @logout="logout"
+        :logo="appImg"
+        website="Nom du site"
+        page="Titre de page"/>
+    `,
+    methods: {
+      logout: action('logout'),
+    },
+    data: () => ({
+      appImg,
+    })
+  }}
+  </Story>
+</Preview>

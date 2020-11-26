@@ -1,0 +1,15 @@
+.ut-navigation-bar {
+    height: 40px;
+    position: fixed;
+    z-index: 5;
+    background-color: white;
+    top: 0;
+    right: 0;
+    left: 0;
+
+    .ut-navigation-bar__close-btn--xs-only {
+        position: absolute; 
+        right: 0;
+    }
+}
+

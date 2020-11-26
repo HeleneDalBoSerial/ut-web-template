@@ -1,0 +1,64 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { VSelect } from "vuetify/lib";
+
+<Meta
+  title="Design System/Composants/Formulaire/Select"
+  component={VSelect}
+  decorators={[() => ({
+    template: '<div class="pa-2" style="height: 500px"><story/></div>'
+  })]}
+/>
+
+# Select
+
+Veuillez vous référer à la [documentation](https://vuetifyjs.com/en/components/selects/#selects) complète de Vuetify
+
+## Style
+
+Pour l'apparence, on utilise les propriétés suivantes:
+- `filled`
+
+<Preview>
+  <Story name="Basique">
+    {{
+      components: { VSelect },
+      template: `
+        <v-select
+        v-model="role"
+        :items="items"
+        filled
+        label="Label"
+        ></v-select>
+      `,
+      data: () => ({
+        role: [],
+        items: ['Administrateur', 'Invité', 'Technicien']
+      })
+    }}
+  </Story>
+</Preview>
+
+## Sélection multiple
+
+<Preview>
+  <Story name="Sélection multiple">
+    {{
+      components: { VSelect },
+      template: `
+        <v-select
+        v-model="role"
+        :items="items"
+        filled
+        multiple
+        label="Label"
+        hint="Choisissez 1 ou plusieurs rôles"
+        persistent-hint
+        ></v-select>
+      `,
+      data: () => ({
+        role: [],
+        items: ['Administrateur', 'Invité', 'Technicien']
+      })
+    }}
+  </Story>
+</Preview>

@@ -1,0 +1,49 @@
+@import 'colors/variables';
+
+.ut-table {
+
+    &:not(.ut-table--in-table) {
+        border: solid 1px nth($ut-ui-color-list, 4);
+        border-radius: 1px;
+    }
+
+    .ut-table--in-table {
+        th {
+            font-weight: bold;
+            color: black !important;
+        }
+    }
+
+    .ut-table__select {
+        max-width: 200px;
+        font-size: inherit;
+        padding-top: 0;
+        margin-top: 0;
+
+        &.v-text-field {
+            >.v-input__control {
+                >.v-input__slot {
+                    &:before, &:after {
+                        border-style: none;
+                    }
+                }
+            }
+        }
+    }
+    
+    &.ut-table--stripped {
+        /* Le style du tableau ne doit pas s'appliquer à un tableau imbriqué dans une ligne */
+        > .v-data-table__wrapper {
+            > table {
+                > tbody {
+                    > tr {
+                        &:nth-of-type(even) {
+                            background-color: $ut-table__row-color-rgba;
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+}

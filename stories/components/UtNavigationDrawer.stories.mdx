@@ -1,0 +1,209 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+import { VApp, VBtn, VIcon } from "vuetify/lib";
+import { UtNavigationDrawer } from "@/components/UtNavigationDrawer";
+import vuetify from "@/plugins/vuetify";
+
+<Meta
+  title="Design System/Composants/Layout/UtNavigationDrawer"
+  component={UtNavigationDrawer}
+  parameters={{ custom: { wrapWithVuetifyApp: false, fullHeight: true } }}
+/>
+
+# Panneau Latéral
+
+- Ce composant s'appuie sur:
+  - le composant [v-navigation-drawer](https://vuetifyjs.com/en/components/navigation-drawers/#navigation-drawers)
+  - il utilise [v-dialog](https://vuetifyjs.com/en/components/dialogs/#dialogs) pour les petits écrans
+
+### API
+
+#### Props
+
+| Nom | Commentaires | Default |
+|---|---|---|
+| titre | Titre du panneau | required |
+| toggle-options | Configuration du bouton | `{icon: undefined, color: '#f0f0f0', dark: false}` |
+
+#### Slots
+
+| Nom | Commentaires |
+| --- | --- |
+| default | |
+
+#### Events
+
+| Nom | Commentaires |
+| --- | --- |
+| input | voir [v-model](https://fr.vuejs.org/v2/guide/components.html#Utiliser-v-model-sur-les-composants) |
+
+<Preview>
+  <Story name="Basique">
+    {{
+      vuetify,
+      components: {
+        VApp,
+        UtNavigationDrawer
+      },
+      template: `
+      <v-app>
+          <ut-navigation-drawer
+            v-model="drawer"
+            title="Titre"
+            :toggle-options="{ icon: 'mdi-filter-variant' }"
+            @input="toggleDrawerAction"
+          >
+            <div class="text-center pa-5">contenu</div>
+          </ut-navigation-drawer>
+          <v-content>
+              <v-container
+                  class="fill-height"
+                  fluid
+              >
+                <div class="px-10">contenu principal</div>
+                <v-btn
+                  fab
+                  v-if="$vuetify.breakpoint.mdAndDown"
+                  @click="drawer = !drawer"
+                  class="ut-navigation-drawer__float-button"
+                >
+                  <v-icon>mdi-filter-variant</v-icon>
+                </v-btn>
+              </v-container>
+          </v-content>
+      </v-app>
+      `,
+      methods: {
+        toggleDrawerAction: action("toggleDrawer")
+      },
+      data: () => ({
+        drawer: false
+      })
+    }}
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Contrôle externe">
+    {{
+      vuetify,
+      components: {
+        VApp,
+        VBtn,
+        UtNavigationDrawer
+      },
+      template: `
+      <v-app>
+          <ut-navigation-drawer v-model="drawer" title="Titre" :app-bar="false">
+            <div class="text-center pa-5">contenu</div>
+          </ut-navigation-drawer>
+          <v-content>
+              <v-container
+                  class="fill-height"
+                  fluid
+              >
+                <div class="px-10">
+                  <v-btn @click="toggleDrawer">{{drawer ? 'fermer' : 'ouvrir'}}</v-btn>
+                </div>
+              </v-container>
+          </v-content>
+      </v-app>
+      `,
+      methods: {
+        toggleDrawer() {
+          this.drawer = !this.drawer;
+        }
+      },
+      data: () => ({
+        drawer: false
+      })
+    }}
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Modifier le bouton">
+    {{
+      vuetify,
+      components: {
+        VApp,
+        VBtn,
+        UtNavigationDrawer,
+        VIcon
+      },
+      template: `
+      <v-app>
+          <ut-navigation-drawer
+            title="Titre"
+            v-model="drawer"
+            :toggle-options="toggleOptions"
+          >
+            <div class="text-center pa-5">contenu</div>
+          </ut-navigation-drawer>
+          <v-content>
+              <v-container
+                  class="fill-height"
+                  fluid
+              >
+                <v-row class="px-10">
+                  <v-col
+                    v-for="(value, key) in options"
+                    >
+                    <v-btn
+                      :dark="value.dark"
+                      :color="value.color"
+                      @click="changeOptions(key)">
+                      <v-icon>{{value.icon}}</v-icon>options {{key+1}}
+                    </v-btn>
+                  </v-col>
+                </v-row>
+                <v-btn
+                  fab
+                  :dark="toggleOptions.dark"
+                  :color="toggleOptions.color"
+                  v-if="$vuetify.breakpoint.mdAndDown"
+                  @click="drawer = !drawer"
+                  class="ut-navigation-drawer__float-button"
+                >
+                  <v-icon>{{toggleOptions.icon}}</v-icon>
+                </v-btn>
+              </v-container>
+          </v-content>
+      </v-app>
+      `,
+      methods: {
+        changeOptions(index) {
+          this.toggleOptions = this.options[index];
+        },
+      },
+      data: () => ({
+        drawer: false,
+        options: [
+          {
+            icon: 'mdi-baguette',
+            color: 'primary',
+            dark: true
+          },
+          {
+            icon: 'mdi-account-search-outline',
+          },
+          {
+            icon: 'mdi-beach',
+            color: 'success',
+            dark: true
+          },
+          {
+            icon: 'mdi-filter-variant',
+            color: 'red',
+            dark: true
+          },
+        ],
+        toggleOptions: {
+          icon: 'mdi-filter-variant',
+          color: 'red',
+          dark: true
+        }
+      })
+    }}
+  </Story>
+</Preview>

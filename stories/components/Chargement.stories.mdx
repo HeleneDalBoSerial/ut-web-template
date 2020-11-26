@@ -1,0 +1,50 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { VProgressCircular, VOverlay } from "vuetify/lib";
+
+<Meta
+  title="Design System/Composants/Chargement"
+  component={VProgressCircular}
+  decorators={[() => ({
+    template: '<div class="pa-2 d-flex justify-center"><story/></div>'
+  })]}
+/>
+
+# Indicateur de chargement
+
+Veuillez vous référer à la documentation complète de Vuetify:
+- [progress circular](https://vuetifyjs.com/en/components/progress-circular/)
+- [progress linear](https://vuetifyjs.com/en/components/progress-linear/)
+- [overlays](https://vuetifyjs.com/en/components/overlays/)
+
+<Preview>
+  <Story name="Basique" inline={true}>
+    {{
+      components: {
+        VProgressCircular,
+        VOverlay
+      },
+      template: `
+      <div class="text-center">
+        <v-btn
+          color="warning"
+          @click="chargement"
+        >
+          Chargement
+        </v-btn>
+        <v-overlay :value="overlay">
+          <v-progress-circular size="70" width="7" indeterminate color="primary"/>
+        </v-overlay>
+      </div>
+      `,
+      data: () => ({
+        overlay: false
+      }),
+      methods: {
+        chargement() {
+          this.overlay = true;
+          setTimeout(() => this.overlay = false, 2000)
+        }
+      }
+    }}
+  </Story>
+</Preview>

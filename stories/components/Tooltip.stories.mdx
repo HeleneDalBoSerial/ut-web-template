@@ -1,0 +1,31 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { VTooltip, VBtn } from "vuetify/lib";
+import { action } from "@storybook/addon-actions";
+
+<Meta
+  title="Design System/Composants/Tooltip"
+  component={VTooltip}
+  decorators={[() => ({
+    template: '<div class="pa-2"><story/></div>'
+  })]}
+/>
+
+# Tooltip
+
+Veuillez vous référer à la [documentation](https://vuetifyjs.com/en/components/tooltips/#tooltips) complète de Vuetify
+
+<Preview>
+  <Story name="Basique">
+    {{
+      components: { VTooltip, VBtn },
+      template: `
+        <v-tooltip bottom>
+          <template v-slot:activator="obj">
+            <span v-on="obj.on">This text has a tooltip</span>
+          </template>
+          <span>Tooltip</span>
+        </v-tooltip>
+      `,
+    }}
+  </Story>
+</Preview>

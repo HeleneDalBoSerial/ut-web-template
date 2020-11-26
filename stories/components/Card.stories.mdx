@@ -1,0 +1,110 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { VCard, VCardActions, VIcon, VListItem, VListItemAvatar, VBtn, VListItemTitle, VImg } from "vuetify/lib";
+import { action } from "@storybook/addon-actions";
+import smallCardImg from '@/assets/stories/picture1.png';
+import mediumCardImg from '@/assets/stories/picture2.png';
+import largeCardImg from '@/assets/stories/picture2.png';
+
+<Meta title="Design System/Composants/Card" component={VCard} />
+
+# Card
+
+Veuillez vous référer à la [documentation](https://vuetifyjs.com/en/components/cards/#cards) complète
+
+## Style
+
+Notez:
+- utilisation de la classe `ut-card` pour appliquer le style *Ugitech*
+- utilisation de la classe `ut-card__favorite-icon`
+
+<Preview>
+  <Story name="Petite" inline={true}>
+    {{
+      components: { VCard, VIcon, VListItem, VListItemAvatar, VBtn, VListItemTitle, VImg },
+      template: `
+        <v-card width="308" height="77" outlined class="mx-auto ut-card">
+          <v-list-item class="px-2">
+            <v-list-item-avatar
+              tile
+              size="60"
+            >
+              <v-img :src="smallCardImg"></v-img>
+            </v-list-item-avatar>
+            <v-list-item-title class="font-weight-bold">Nom de l'application</v-list-item-title>
+            <v-btn icon class="ut-card__favorite-icon" @click="isFavorite = !isFavorite">
+              <v-icon v-if="!isFavorite">mdi-star-outline</v-icon>
+              <v-icon v-if="isFavorite">mdi-star</v-icon>
+            </v-btn>
+          </v-list-item>
+        </v-card>
+      `,
+      data: ()=> ({
+        smallCardImg,
+        isFavorite: false
+      })
+    }}
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Moyenne" inline={true}>
+    {{
+      components: { VCard, VCardActions, VBtn, VIcon, VImg },
+      template: `
+        <v-card width="309" height="167" outlined class="mx-auto pa-2 ut-card">
+            <v-img
+              :src="mediumCardImg"
+              height="70"
+            >
+              <v-btn icon class="white--text ut-card__favorite-icon" @click="isFavorite = !isFavorite">
+                <v-icon v-if="!isFavorite">mdi-star-outline</v-icon>
+                <v-icon v-if="isFavorite">mdi-star</v-icon>
+              </v-btn>
+            </v-img>
+            <div class="mt-2">
+              <div class="font-weight-bold">Nom de l'application</div>
+            </div>
+            <v-card-actions class="justify-end">
+              <v-btn color="primary" text>Ouvrir</v-btn>
+            </v-card-actions>
+        </v-card>
+      `,
+      data: ()=> ({
+        mediumCardImg,
+        isFavorite: false
+      })
+    }}
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Grande" inline={true}>
+    {{
+      components: { VCard, VCardActions, VBtn, VIcon, VImg },
+      template: `
+        <v-card width="421" height="228" outlined class="mx-auto pa-2 ut-card">
+            <v-img
+              :src="largeCardImg"
+              height="135"
+            >
+              <v-btn icon class="white--text ut-card__favorite-icon" @click="isFavorite = !isFavorite">
+                <v-icon v-if="!isFavorite">mdi-star-outline</v-icon>
+                <v-icon v-if="isFavorite">mdi-star</v-icon>
+              </v-btn>
+            </v-img>
+            <div class="mt-2">
+              <div class="font-weight-bold">Nom de l'application</div>
+            </div>
+            <v-card-actions class="justify-end">
+              <v-btn color="primary" text>Ouvrir</v-btn>
+            </v-card-actions>
+        </v-card>
+      `,
+      data: ()=> ({
+        largeCardImg,
+        isFavorite: false
+      })
+    }}
+  </Story>
+</Preview>
+

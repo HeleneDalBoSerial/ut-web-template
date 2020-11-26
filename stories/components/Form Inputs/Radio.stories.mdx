@@ -1,0 +1,34 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { VRadio, VRadioGroup } from "vuetify/lib";
+
+<Meta
+  title="Design System/Composants/Formulaire/Radio"
+  component={VRadio}
+/>
+
+# Radio
+
+Veuillez vous référer à la [documentation](https://vuetifyjs.com/en/components/selection-controls/) complète de Vuetify
+
+## Style
+
+On utilise la classe `ut-input` pour appliquer le style *Ugitech*
+
+<Preview>
+  <Story name="Basique" inline={true} height="200px">
+    {{
+      components: { VRadio, VRadioGroup },
+      template: `
+        <v-radio-group>
+          <v-radio
+            class="ut-input"
+            v-for="n in 3"
+            :key="n"
+            :label="'Radio ' + n"
+            :value="n"
+          ></v-radio>
+        </v-radio-group>
+      `,
+    }}
+  </Story>
+</Preview>

@@ -1,0 +1,10 @@
+.ut-time-picker__separator {
+  position: relative;
+}
+
+.ut-time-picker__separator:after {
+  content: ":";
+  position: absolute;
+  top: calc(50% - 12px);
+  right: 0;
+}

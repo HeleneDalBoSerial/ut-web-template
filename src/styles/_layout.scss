@@ -1,0 +1,19 @@
+$ut-app-bar-height: 64px;
+$ut-navigation-bar-height: 40px;
+$ut-top-offset: $ut-app-bar-height + $ut-navigation-bar-height;
+
+.ut-app--navigation-bar {
+  .v-app-bar {
+    margin-top: $ut-navigation-bar-height !important;
+  }
+
+  @media screen and (min-width: 1264px) {
+    .ut-navigation-drawer {
+      top: $ut-top-offset !important;
+    }
+  }
+
+  .v-application--wrap > main {
+    padding-top: $ut-top-offset !important;
+  }
+}

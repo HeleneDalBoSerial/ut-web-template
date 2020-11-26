@@ -1,0 +1,551 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { action } from "@storybook/addon-actions";
+import {
+  VNavigationDrawer,
+  VAppBar,
+  VSpacer,
+  VDialog
+} from 'vuetify/lib';
+import { UtAppMenu } from '@/components/UtAppMenu';
+import appImg from '@/assets/LogoA2iUgitech_FullRes.png';
+
+<Meta
+  title="Design System/Composants/UtAppMenu"
+  component={UtAppMenu}
+/>
+
+# UtAppMenu
+
+## API
+
+#### Props
+
+| Nom | Commentaires | Required |
+|---|---|---|
+| items | MenuItem[] | oui |
+| title | titre du menu | oui |
+| username | nom de l'utilisateur connecté (apparait sur les petits écrans) | non |
+
+#### Slots
+
+| Nom | Commentaires |
+|---|---|
+| img | image apparaissant à côté du titre |
+
+#### Events
+
+| Nom | Commentaires |
+|---|---|
+| click | clique sur un item du menu, l'event handler récupère le NavItem en entrée |
+| logout | clique sur le bouton de déconnection (il apparait sur les petits écrans) |
+| hide | clique sur la croix de fermeture |
+
+#### MenuItem
+
+```ts
+export interface MenuItem {
+  title: string;
+  type?: 'app';
+}
+
+export interface MenuNavItem extends MenuItem {
+  items?: MenuNavItem[];
+  selected?: boolean;
+  disabled?: boolean;
+  type: undefined;
+}
+
+export interface MenuAppItem {
+  type: 'app';
+  color: string;
+  icon: string;
+}
+```
+
+## Complet
+
+<Preview>
+  <Story name="Complet">
+  {{
+    components: {
+      UtAppMenu,
+    },
+    template: `
+          <v-menu
+            absolute
+            nav
+            :close-on-click="false"
+            :close-on-content-click="false"
+            dark
+            v-model="showMenu"
+          >
+            <template v-slot:activator="obj">
+              <v-btn dark icon v-on="obj.on" color="black">
+                <v-icon>mdi-menu</v-icon>
+              </v-btn>
+            </template>
+            <ut-app-menu
+              :items="menuItems"
+              username="Cyril Martinez"
+              title="Menu"
+              @hide="hide"
+              @click="click">
+              <template v-slot:img>
+                <img :src="appImg" width="40"/>
+              </template>
+            </ut-app-menu>
+          </v-menu>
+        `,
+    data: () => ({
+      appImg,
+      menuItems: [
+        { title: 'Titre de page 1' },
+        { title: 'Titre de page 2' },
+        {
+          title: 'Ensemble de pages 1',
+          items: [
+            { title: 'Titre de page 3' },
+            { title: 'Titre de page 4' },
+          ],
+        },
+        { title: 'Titre de page 5' },
+        {
+          title: 'Applications',
+          color: '#99CD50',
+          icon: 'mdi-wrench',
+          type: 'app',
+        },
+        {
+          title: 'Ged-archive',
+          color: '#6A969C',
+          icon: 'mdi-package-down',
+          type: 'app',
+        },
+        {
+          title: 'Ged',
+          color: '#0280CA',
+          icon: 'mdi-cards',
+          type: 'app',
+        },
+        {
+          title: 'Projects',
+          color: '#F25B06',
+          icon: 'mdi-account-multiple',
+          type: 'app',
+        },
+        {
+          title: 'Teams',
+          color: '#537998',
+          icon: 'mdi-comment',
+          type: 'app',
+        },
+        {
+          title: 'Wikis',
+          color: '#9B5E62',
+          icon: 'mdi-book-open',
+          type: 'app',
+        },
+      ],
+      showMenu: true,
+    }),
+    methods: {
+      click: action('click'),
+      hide($event) {
+        this.hideAction($event);
+        this.showMenu = false;
+      },
+      hideAction: action('hide'),
+    },
+  }}
+  </Story>
+</Preview>
+
+## Responsive
+
+- Ecran large: on encapsule `ut-app-menu` dans un `v-menu` de vuetify
+- Ecran petit: on encapsule `ut-app-menu` dans un `v-dialog` de Vuetify (avec l'option `fullscreen`)
+
+<Preview>
+  <Story name="Responsive">
+  {{
+    components: {
+      UtAppMenu,
+    },
+    template: `
+      <v-dialog
+        v-if="$vuetify.breakpoint.xsOnly"
+        v-model="showMenu"
+        dark
+        transition="slide-x-reverse-transition"
+        fullscreen >
+        <template v-slot:activator="obj">
+          <v-app-bar-nav-icon v-on="obj.on" />
+        </template>
+        <ut-app-menu
+          :items="menuItems"
+          title="Menu"
+          @hide="showMenu = false"
+        >
+          <template v-slot:img>
+            <img :src="appImg" width="40"/>
+          </template>
+        </ut-app-menu>
+      </v-dialog>
+      <v-menu
+        v-else
+        absolute
+        nav
+        :close-on-click="false"
+        :close-on-content-click="false"
+        dark
+        v-model="showMenu"
+      >
+        <template v-slot:activator="obj">
+          <v-btn dark icon v-on="obj.on" color="black">
+            <v-icon>mdi-menu</v-icon>
+          </v-btn>
+        </template>
+        <ut-app-menu
+          :items="menuItems"
+          title="Menu"
+          @hide="hide"
+          @click="click">
+          <template v-slot:img>
+            <img :src="appImg" width="40"/>
+          </template>
+        </ut-app-menu>
+      </v-menu>
+    `,
+    data: () => ({
+      appImg,
+      menuItems: [
+        { title: 'Titre de page 1' },
+        { title: 'Titre de page 2' },
+        {
+          title: 'Ensemble de pages 1',
+          items: [
+            { title: 'Titre de page 3' },
+            { title: 'Titre de page 4' },
+          ],
+        },
+        { title: 'Titre de page 5' },
+        {
+          title: 'Applications',
+          color: '#99CD50',
+          icon: 'mdi-wrench',
+          type: 'app',
+        },
+        {
+          title: 'Ged-archive',
+          color: '#6A969C',
+          icon: 'mdi-package-down',
+          type: 'app',
+        },
+        {
+          title: 'Ged',
+          color: '#0280CA',
+          icon: 'mdi-cards',
+          type: 'app',
+        },
+        {
+          title: 'Projects',
+          color: '#F25B06',
+          icon: 'mdi-account-multiple',
+          type: 'app',
+        },
+        {
+          title: 'Teams',
+          color: '#537998',
+          icon: 'mdi-comment',
+          type: 'app',
+        },
+        {
+          title: 'Wikis',
+          color: '#9B5E62',
+          icon: 'mdi-book-open',
+          type: 'app',
+        },
+      ],
+      showMenu: true,
+    }),
+    methods: {
+      click: action('click'),
+      hide($event) {
+        this.hideAction($event);
+        this.showMenu = false;
+      },
+      hideAction: action('hide'),
+    },
+  }}
+  </Story>
+</Preview>
+
+## Navigation Drawer
+
+- Dans IE11, l'élément `v-menu` de Vuetify ne s'affiche pas correctement
+- Si vous voulez supporter IE11, il est préférable d'utiliser un `v-navigation-drawer` pour afficher le menu
+
+<Preview>
+  <Story name="Navigation Drawer">
+  {{
+    components: {
+      UtAppMenu,
+      VNavigationDrawer,
+      VAppBar,
+      VSpacer
+    },
+    template: `
+    <div>
+      <v-app-bar dark>
+        <v-spacer/>
+        <v-btn dark icon @click="showMenu = !showMenu">
+          <v-icon>mdi-menu</v-icon>
+        </v-btn>
+      </v-app-bar>
+      <v-navigation-drawer
+        v-model="showMenu"
+        dark
+        app
+        right
+        width="300"
+      >
+        <ut-app-menu
+          :items="menuItems"
+          username="Cyril Martinez"
+          title="Menu"
+          @hide="hide"
+          @click="click">
+          <template v-slot:img>
+            <img :src="appImg" width="40"/>
+          </template>
+        </ut-app-menu>
+      </v-navigation-drawer>
+    </div>
+    `,
+    data: () => ({
+      appImg,
+      menuItems: [
+        { title: 'Titre de page 1' },
+        { title: 'Titre de page 2' },
+        {
+          title: 'Ensemble de pages 1',
+          items: [
+            { title: 'Titre de page 3' },
+            { title: 'Titre de page 4' },
+          ],
+        },
+        { title: 'Titre de page 5' },
+        {
+          title: 'Applications',
+          color: '#99CD50',
+          icon: 'mdi-wrench',
+          type: 'app',
+        },
+        {
+          title: 'Ged-archive',
+          color: '#6A969C',
+          icon: 'mdi-package-down',
+          type: 'app',
+        },
+        {
+          title: 'Ged',
+          color: '#0280CA',
+          icon: 'mdi-cards',
+          type: 'app',
+        },
+        {
+          title: 'Projects',
+          color: '#F25B06',
+          icon: 'mdi-account-multiple',
+          type: 'app',
+        },
+        {
+          title: 'Teams',
+          color: '#537998',
+          icon: 'mdi-comment',
+          type: 'app',
+        },
+        {
+          title: 'Wikis',
+          color: '#9B5E62',
+          icon: 'mdi-book-open',
+          type: 'app',
+        },
+      ],
+      showMenu: true,
+    }),
+    methods: {
+      click: action('click'),
+      hide($event) {
+        this.hideAction($event);
+        this.showMenu = false;
+      },
+      hideAction: action('hide'),
+    },
+  }}
+  </Story>
+</Preview>
+
+## Liens d'applications (MenuAppItem)
+
+<Preview>
+  <Story name="Liens d\'applications">
+    {{
+    components: {
+      UtAppMenu,
+    },
+    template: `
+          <v-menu
+            absolute
+            nav
+            :close-on-click="false"
+            :close-on-content-click="false"
+            dark
+            v-model="showMenu"
+          >
+            <template v-slot:activator="obj">
+              <v-btn dark icon v-on="obj.on" color="black">
+                <v-icon>mdi-menu</v-icon>
+              </v-btn>
+            </template>
+            <ut-app-menu v-bind:items="menuItems" title="Menu" @hide="hide" @click="click"/>
+          </v-menu>
+        `,
+    data: () => ({
+      menuItems: [
+        {
+          title: 'Applications',
+          color: '#99CD50',
+          icon: 'mdi-wrench',
+          type: 'app',
+        },
+        {
+          title: 'Ged-archive',
+          color: '#6A969C',
+          icon: 'mdi-package-down',
+          type: 'app',
+        },
+        {
+          title: 'Ged',
+          color: '#0280CA',
+          icon: 'mdi-cards',
+          type: 'app',
+        },
+        {
+          title: 'Projects',
+          color: '#F25B06',
+          icon: 'mdi-account-multiple',
+          type: 'app',
+        },
+        {
+          title: 'Teams',
+          color: '#537998',
+          icon: 'mdi-comment',
+          type: 'app',
+        },
+        {
+          title: 'Wikis',
+          color: '#9B5E62',
+          icon: 'mdi-book-open',
+          type: 'app',
+        },
+      ],
+      showMenu: true,
+    }),
+    methods: {
+      click: action('click'),
+      hide($event) {
+        this.hideAction($event);
+        this.showMenu = false;
+      },
+      hideAction: action('hide'),
+    },
+  }}
+  </Story>
+</Preview>
+
+## Liens de navigation (MenuNavItem)
+
+Un `NavItem` a une propriété `selected` et `disabled`.
+
+Vous avez ici un exemple de code qui gère la sélection et la désactivation de certain liens.
+
+<Preview>
+  <Story name="Liens de navigation">
+  {{
+    components: {
+      UtAppMenu,
+    },
+    template: `
+      <v-menu
+        absolute
+        nav
+        :close-on-click="false"
+        :close-on-content-click="false"
+        dark
+        v-model="showMenu"
+      >
+        <template v-slot:activator="obj">
+          <v-btn dark icon v-on="obj.on" color="black">
+            <v-icon>mdi-menu</v-icon>
+          </v-btn>
+        </template>
+        <ut-app-menu v-bind:items="menuItems" title="Menu" @hide="hide" @click="click"/>
+      </v-menu>
+    `,
+    data: () => ({
+      menuItems: [
+        { title: 'Titre de page 1', selected: false },
+        { title: 'Titre de page 2', disabled: true },
+        {
+          title: 'Ensemble de pages 1',
+          items: [
+            { title: 'Titre de page 3', disabled: true },
+            { title: 'Titre de page 4', selected: false },
+          ],
+        },
+        { title: 'Titre de page 5', selected: true },
+        { title: 'Titre de page 6', selected: false },
+      ],
+      showMenu: true,
+    }),
+    methods: {
+      deselect() {
+        const deselect = (it) => {
+          // eslint-disable-next-line no-param-reassign
+          it.selected = false;
+          if (it.items) {
+            it.items.forEach(deselect);
+          }
+        };
+        this.menuItems.forEach(deselect);
+      },
+      selectItem(itemToSelect) {
+        let found = false;
+        const select = (it) => {
+          if (it.title === itemToSelect.title) {
+            found = true;
+            // eslint-disable-next-line no-param-reassign
+            it.selected = true;
+          }
+          if (it.items && !found) {
+            it.items.forEach(select);
+          }
+        };
+        this.menuItems.forEach(select);
+      },
+      click(item) {
+        this.clickAction(item);
+        this.deselect();
+        this.selectItem(item);
+      },
+      hide($event) {
+        this.hideAction($event);
+        this.showMenu = false;
+      },
+      clickAction: action('click'),
+      hideAction: action('hide'),
+    },
+  }}
+  </Story>
+</Preview>

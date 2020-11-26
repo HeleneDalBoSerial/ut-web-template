@@ -1,0 +1,49 @@
+/**
+* see https://vuetifyjs.com/en/customization/sass-variables/
+*
+* This file is automatically added to the build chain by the vue-cli-plugin-vuetify
+* see https://github.com/vuetifyjs/vue-cli-plugins/blob/ec7577a0c8a4101cf7e6080ad493c6addb89220a/packages/vue-cli-plugin-vuetify/util/helpers.js#L37
+*
+* /!\ Do not import style definitions here or it will be added in every vuetify components
+*/
+@import "colors/variables";
+@import "tooltip";
+
+$body-font-family: Arial, Helvetica, sans-serif;
+$border-radius-root: 0px;
+$navigation-drawer-border-width: 0px;
+$material-light: (
+  "background": #fafafa,
+  "text-fields": (
+    "filled": #f0f0f0,
+    'filled-hover': #e9eaea
+  ),
+  "table": (
+    "hover": #d6e3ed
+  ),
+  "text": (
+    "primary": nth($ut-text-color-list, 1),
+    "secondary": nth($ut-text-color-list, 2)
+  )
+);
+
+$ut-dark-theme-color: #3a4651 !default;
+$material-dark: (
+  "cards": $ut-dark-theme-color,
+  "app-bar": $ut-dark-theme-color,
+  "toolbar": $ut-dark-theme-color,
+  "states": (
+    "hover": 0,
+    "activated": 0
+  )
+);
+
+$headings: (
+  "h6": (
+    "size": 1.25rem,
+    "weight": 700,
+    "line-height": 2rem,
+    "letter-spacing": 0.0125em,
+    "font-family": 'Arial'
+  )
+);

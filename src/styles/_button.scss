@@ -1,0 +1,7 @@
+@import 'colors/variables';
+
+.ut-btn {
+    &.ut-btn--outlined {
+        border-color: nth($ut-ui-color-list, 4) !important;
+    }
+}

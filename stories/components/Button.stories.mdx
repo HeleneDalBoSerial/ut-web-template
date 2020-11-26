@@ -1,0 +1,80 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { VBtn, VBtnToggle, VIcon } from "vuetify/lib";
+import { action } from "@storybook/addon-actions";
+
+<Meta 
+  title="Design System/Composants/Boutons" 
+  component={VBtn} 
+  decorators={[() => ({
+    template: '<div class="pa-2 d-flex justify-center"><story/></div>'
+  })]}
+/>
+
+# Boutons
+
+Veuillez vous référer à la [documentation](https://vuetifyjs.com/en/components/buttons/) complète de Vuetify
+
+## Style
+
+### Principal
+
+On applique la propriété `color="primary"` 
+
+### Secondaire
+
+On utilise:
+- la propriété `color="primary"` 
+- la propriété `outlined`
+- les classes `ut-btn ut-btn--outlined`
+
+### Tertiaire
+
+On utilise:
+- la propriété `color="primary"` 
+- la propriété `text`
+
+<Preview>
+  <Story name="Basique" inline={true} height="50px">
+    {{
+      components: { VBtn, VIcon },
+      template: `
+      <div>
+        <v-btn :ripple="false" color="primary" @click="action"><v-icon left>mdi-pencil</v-icon>Principal</v-btn>
+        <v-btn outlined :ripple="false" color="primary" class="ut-btn ut-btn--outlined" @click="action"><v-icon left>mdi-pencil</v-icon>Secondaire</v-btn>
+        <v-btn text :ripple="false" color="primary" @click="action"><v-icon left>mdi-pencil</v-icon>Tertiaire</v-btn>
+      </div>
+      `,
+      methods: { action: action("clicked") }
+    }}
+  </Story>
+</Preview>
+
+## Toggle
+
+Veuillez vous référer à la [documentation](https://vuetifyjs.com/en/components/button-groups/) complète de Vuetify
+
+<Preview>
+  <Story name="Toggle" inline={true} height="50px">
+    {{
+      components: { VBtnToggle, VIcon },
+      template: `
+      <div>
+        <v-btn-toggle v-model="toggle_exclusive">
+          <v-btn>
+            <v-icon>mdi-brightness-1</v-icon>
+          </v-btn>
+          <v-btn>
+            <v-icon>mdi-brightness-2</v-icon>
+          </v-btn>
+          <v-btn>
+            <v-icon>mdi-brightness-3</v-icon>
+          </v-btn>
+        </v-btn-toggle>
+      </div>
+      `,
+      data: () => ({
+        toggle_exclusive: 2
+      })
+    }}
+  </Story>
+</Preview>

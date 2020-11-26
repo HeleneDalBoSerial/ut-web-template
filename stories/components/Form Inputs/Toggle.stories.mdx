@@ -1,0 +1,30 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { VSwitch } from "vuetify/lib";
+
+<Meta
+  title="Design System/Composants/Formulaire/Toggle"
+  component={VSwitch}
+  decorators={[() => ({
+    template: '<div class="pa-2"><story/></div>'
+  })]}
+/>
+
+# Toggle / Switch
+
+Veuillez vous référer à la [documentation](https://vuetifyjs.com/en/components/selection-controls/) complète de Vuetify 
+
+## Style
+
+On utilise la classe `ut-input` pour appliquer le style *Ugitech*
+
+<Preview>
+  <Story name="Basique" inline={true} height="200px">
+    {{
+      components: { VSwitch },
+      template: `
+        <v-switch inset v-model="mandatory" class="mx-2 ut-input" label="Mandatory"></v-switch>
+      `,
+      data: () => ({ mandatory: false })
+    }}
+  </Story>
+</Preview>

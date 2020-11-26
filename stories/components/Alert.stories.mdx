@@ -1,0 +1,126 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { VAlert, VBtn } from "vuetify/lib";
+import { action } from "@storybook/addon-actions";
+
+<Meta title="Design System/Composants/Alertes" component={VAlert} />
+
+# Alertes
+
+Veuillez vous référer à la [documentation](https://vuetifyjs.com/en/components/alerts/) complète
+
+## Style
+
+Notez:
+- utilisation de la classe `ut-alert` sur un composant `v-alert` pour appliquer le style *Ugitech*
+
+<Preview>
+  <Story name="Basique" inline={true}>
+    {{
+      components: { VAlert },
+      template: `
+       <v-alert
+          border="left"
+          class="text-left ut-alert"
+          icon="mdi-information"
+        >
+          <div class="title">Information</div>
+          <div>Je suis un message d'information basique</div>
+        </v-alert>
+      `,
+    }}
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Dismissible" inline={true}>
+    {{
+      components: { VAlert, VBtn },
+      template: `
+      <div>
+        <v-alert
+          v-model="alert"
+          dismissible
+          border="left"
+          class="text-left ut-alert"
+          icon="mdi-information"
+        >
+          <div class="title">Information</div>
+          <div>Je transmets des informations qui ne sont pas capitales</div>
+        </v-alert>
+        <div class="text-center">
+          <v-btn
+            v-if="!alert"
+            color="accent-4"
+            dark
+            @click="alert = true"
+          >
+            Reset
+          </v-btn>
+        </div>
+      </div>
+      `,
+      data: () => ({
+        alert: true
+      })
+    }}
+  </Story>
+</Preview>
+
+Les classes ci-dessous permettent d'appliquer un style adapté au type d'information:
+- `ut-alert--error`
+- `ut-alert--warn`
+- `ut-alert--info`
+
+<Preview>
+  <Story name="Erreur" inline={true}>
+    {{
+      components: { VAlert },
+      template: `
+       <v-alert
+          border="left"
+          class="text-left ut-alert ut-alert--error"
+          icon="mdi-alert-circle"
+        >
+          <div class="title">Erreur</div>
+          <div>Je suis un message qui informe d'une erreur</div>
+        </v-alert>
+      `,
+    }}
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Warning" inline={true}>
+    {{
+      components: { VAlert },
+      template: `
+       <v-alert
+          border="left"
+          class="text-left ut-alert ut-alert--warn"
+          icon="mdi-alert"
+        >
+          <div class="title">Attention</div>
+          <div>Je vous informe d'un message à prendre connaissance</div>
+        </v-alert>
+      `,
+    }}
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Information" inline={true}>
+    {{
+      components: { VAlert },
+      template: `
+       <v-alert
+          border="left"
+          class="text-left ut-alert ut-alert--info"
+          icon="mdi-information"
+        >
+          <div class="title">Information</div>
+          <div>Je transmets des informations qui ne sont pas capitales</div>
+        </v-alert>
+      `,
+    }}
+  </Story>
+</Preview>

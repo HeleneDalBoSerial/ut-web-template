@@ -1,0 +1,39 @@
+@import "../../styles/colors/variables";
+
+.ut-connection-page {
+    background-color: white;
+}
+
+.ut-connection-page__fill {
+    background-color: $ut-primary;
+}
+
+$ut-logo-header-height: 56px;
+.ut-connection-page__logo {
+    img {
+        height: 79px;
+    }
+
+    @media screen and (min-width: 960px) {
+        position: fixed;
+        top: 26px;
+        right: 25px;
+    }
+
+    @media screen and (max-width: 960px) {
+        position: relative;
+        height: $ut-logo-header-height;
+        img {
+            position: absolute;
+            right: 5px;
+            height: 50px;
+        }
+    }
+}
+
+.ut-connection-page__form {
+    height: 100%;
+    @media screen and (max-width: 960px) {
+        height: calc(100% - #{$ut-logo-header-height * 2});
+    }
+}

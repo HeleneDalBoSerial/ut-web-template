@@ -1,0 +1,53 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { VDatePicker, VMenu, VTextField, VSpacer, VBtn } from "vuetify/lib";
+import { action } from '@storybook/addon-actions'
+
+<Meta
+  title="Design System/Composants/Formulaire/Date"
+  component={VDatePicker}
+  decorators={[() => ({
+    template: '<div class="pa-2"><story/></div>'
+  })]}
+/>
+
+<Preview>
+  <Story name="Basique">
+    {{
+      components: { VDatePicker, VMenu, VTextField, VSpacer, VBtn },
+      template: `
+        <v-menu
+          ref="menu"
+          v-model="menu"
+          :close-on-content-click="false"
+          :return-value.sync="date"
+          transition="scale-transition"
+          offset-y
+          min-width="290px"
+        >
+          <template v-slot:activator="obj">
+            <v-text-field
+              filled
+              v-model="date"
+              label="Choix de date"
+              append-icon="mdi-calendar"
+              readonly
+              v-on="obj.on"
+            ></v-text-field>
+          </template>
+          <v-date-picker v-model="date" no-title scrollable show-current="false" @input="change">
+            <v-spacer></v-spacer>
+            <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
+            <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+          </v-date-picker>
+        </v-menu>
+      `,
+      data: () => ({
+        date: new Date().toISOString().substr(0, 10),
+        menu: false
+      }),
+      methods: {
+        change: action('change'),
+      },
+    }}
+  </Story>
+</Preview>

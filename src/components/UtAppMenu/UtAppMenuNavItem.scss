@@ -1,0 +1,23 @@
+@import "../../styles/menu";
+
+.ut-app-menu__list-item {
+  &:hover {
+    background-color: $ut-app-menu__list-item--hover-color;
+  }
+}
+
+.ut-app-menu__list-group {
+  > .v-list-group__header {
+    &:hover {
+      background-color: $ut-app-menu__list-item--hover-color;
+    }
+  }
+}
+
+.ut-app-menu__list-group__header {
+  min-height: 60px;
+}
+
+.ut-app-menu__list-item--selected {
+  background-color: $ut-app-menu__list-item--selected-color;
+}

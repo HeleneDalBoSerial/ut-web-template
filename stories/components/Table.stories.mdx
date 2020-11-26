@@ -1,0 +1,436 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import {
+  VDataTable,
+  VSimpleTable,
+  VSelect,
+  VTooltip,
+  VIcon,
+  VToolbar,
+  VToolbarTitle,
+  VSwitch,
+  VSpacer,
+  VTextField
+} from "vuetify/lib";
+import { action } from "@storybook/addon-actions";
+import moment from 'moment';
+import random from 'lodash/random';
+import sample from 'lodash/sample';
+
+<Meta title="Design System/Composants/Tableau" component={VDataTable} />
+
+# Tableau
+
+Le composant `v-data-table` de Vuetify est très versatile.
+Veuillez consulter la [documentation officielle](https://vuetifyjs.com/en/components/data-tables/#data-tables) pour adapter les tableaux de données aux besoins de vos applications.
+
+## Style
+
+Notez:
+- utilisation des classes `ut-table` et `ut-table--stripped` sur l'élément `v-data-table`
+- utilisation de la classe `ut-table__select` sur l'élément `v-select`
+
+## Tableau de données complexes
+
+<Preview>
+  <Story name="Tableau de données complexes" inline={true}>
+    {{
+      components: {
+        VDataTable,
+        VSelect,
+        VTooltip,
+        VIcon,
+        VToolbar,
+        VToolbarTitle,
+        VSpacer,
+        VTextField
+      },
+      template: `
+        <v-data-table
+          v-model="selected"
+          @item-selected="onItemSelected"
+          @input="onInput"
+          :headers="headers"
+          :items="items"
+          :search="search"
+          item-key="id"
+          show-select
+          class="ut-table ut-table--stripped"
+        >
+          <template v-slot:top>
+            <v-toolbar flat>
+              <v-toolbar-title>Logs</v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-text-field
+                v-model="search"
+                append-icon="mdi-magnify"
+                label="Recherche"
+                single-line
+                hide-details
+              ></v-text-field>
+            </v-toolbar>
+          </template>
+          <template v-slot:item.date="{ item }">
+            {{ item.date | date('DD/MM/YYYY HH:mm:ss') }}
+          </template>
+          <template v-slot:item.type="{ item }">
+            <v-icon :class="item.type | iconClass">{{ item.type | icon }}</v-icon>
+            <span>{{ item.type | capitalize }}</span>
+          </template>
+          <template v-slot:item.fonction="{ item }">
+            <v-select hide-details class="ut-table__select" :items="fonctions" :value="item.fonction"></v-select>
+          </template>
+          <template v-slot:item.clé="{ item }">
+            <a v-if="item.clé.url" :href="item.clé.url" target="_blank">{{ item.clé.value | capitalize }}</a>
+            <span v-if="!item.clé.url">{{ item.clé.value | capitalize }}</span>
+          </template>
+          <template v-slot:item.infos="{ item }">
+            <v-tooltip bottom>
+              <template v-slot:activator="obj">
+                <div style="max-width: 800px;" class="ut-table-cell__nowrap d-none d-lg-block" v-on="obj.on">
+                  <span v-if="item.infos instanceof Object" class="custom__separator" v-for="(val, key) in item.infos">
+                    {{key | capitalize}}: {{val | capitalize}}
+                  </span>
+                  <span v-if="!(item.infos instanceof Object)">{{item.infos}}</span>
+                </div>
+                <v-icon v-on="obj.on" class="d-lg-none ut-pointer">mdi-information</v-icon>
+              </template>
+              <div>
+                <span v-if="item.infos instanceof Object" class="custom__separator" v-for="(val, key) in item.infos">
+                  {{key | capitalize}}: {{val | capitalize}}
+                </span>
+                <span v-if="!(item.infos instanceof Object)">{{item.infos}}</span>
+              </div>
+            </v-tooltip>
+          </template>
+        </v-data-table>
+      `,
+      filters: {
+        capitalize(value) {
+          if (!value) return '';
+          value = value.toString();
+          return value.charAt(0).toUpperCase() + value.slice(1);
+        },
+        date(value, format) {
+          return moment(value).format(format);
+        },
+        icon(value) {
+          if (value == 'alert') {
+            return 'mdi-alert-circle';
+          }
+          if (value == 'info') {
+            return 'mdi-information';
+          }
+          if (value == 'check') {
+            return 'mdi-check-circle';
+          }
+          return '';
+        },
+        iconClass(value) {
+          if (value == 'alert') {
+            return 'ut-error';
+          }
+          if (value == 'info') {
+            return 'ut-info';
+          }
+          if (value == 'check') {
+            return 'ut-success';
+          }
+          return '';
+        }
+      },
+      data: () => ({
+        search: '',
+        fonctions: [{
+          text:'Connexion Web',
+          value:'Connexion Web',
+        },{
+          text:'Terminer Camion',
+          value:'Terminer Camion'
+        }],
+        selected: [],
+        headers: [
+          {
+            text: 'Date',
+            align: 'start',
+            sortable: true,
+            value: 'date',
+          },
+          { text: 'Type', value: 'type', sortable: true, },
+          { text: 'Fonction', value: 'fonction', sortable: false, },
+          { text: 'Clé', value: 'clé', sortable: false, },
+          { text: 'Infos', value: 'infos', sortable: false, },
+        ],
+        items: [
+          {
+            id: 1,
+            date: new Date('03/03/2020 13:19:50'),
+            type: 'info',
+            fonction: 'Connexion Web',
+            clé: { value: 'administrateur', url: 'http://www.ugitech.com', },
+            infos: {
+              utilisateur: 'administrateur',
+              poste: 'matin',
+              role: 'administrateur',
+              emplacement: 'tous',
+              utilisateur2: 'administrateur',
+              poste2: 'matin',
+              role2: 'administrateur',
+              emplacement2: 'tous'
+            }
+          },
+          {
+            id: 2,
+            date: new Date('03/03/2020 13:17:20'),
+            type: 'check',
+            fonction: 'Terminer Camion',
+            clé: { value: '458878' },
+            infos: "L'étape PWT du BT 458878 a été terminée",
+          },
+          {
+            id: 3,
+            date: new Date('03/03/2020 13:45:55'),
+            type: 'alert',
+            fonction: 'Terminer Camion',
+            clé: { value: '458878', url: 'http://www.ugitech.com', },
+            infos: "L'étape PWT du BT 458878 a été terminée",
+          },
+          {
+            id: 4,
+            date: new Date('12/27/2019 13:19:50'),
+            type: 'info',
+            fonction: 'Connexion Web',
+            clé: { value: 'administrateur', url: 'http://www.ugitech.com', },
+            infos: {
+              utilisateur: 'administrateur',
+              poste: 'matin',
+              role: 'administrateur',
+              emplacement: 'tous',
+              utilisateur2: 'administrateur',
+              poste2: 'matin',
+              role2: 'administrateur',
+              emplacement2: 'tous'
+            }
+          },
+          {
+            id: 5,
+            date: new Date('07/03/2020 13:19:50'),
+            type: 'info',
+            fonction: 'Connexion Web',
+            clé: { value: 'administrateur' },
+            infos: {
+              utilisateur: 'administrateur',
+              poste: 'matin',
+              role: 'administrateur',
+              emplacement: 'tous',
+              utilisateur2: 'administrateur',
+              poste2: 'matin',
+              role2: 'administrateur',
+              emplacement2: 'tous'
+            }
+          },
+          {
+            id: 6,
+            date: new Date('07/04/2020 19:02:01'),
+            type: 'alert',
+            fonction: 'Connexion Web',
+            clé: { value: 'administrateur'},
+            infos: {
+              utilisateur: 'administrateur',
+              poste: 'matin',
+              role: 'administrateur',
+              emplacement: 'tous',
+            }
+          },
+        ]
+      }),
+      methods: {
+        onItemSelected: action('selectItem'),
+        onInput: action('selectedItems'),
+      }
+    }}
+  </Story>
+</Preview>
+
+## Lignes extensibles
+
+<Preview>
+  <Story name="Lignes extensibles" inline={true}>
+    {{
+      components: {
+        VDataTable,
+        VToolbar,
+        VSwitch,
+        VSpacer,
+      },
+      template: `
+        <v-data-table
+          @item-expanded="onItemExpanded"
+          :headers="headers"
+          :items="desserts"
+          :single-expand="singleExpand"
+          :expanded.sync="expanded"
+          item-key="name"
+          show-expand
+          class="ut-table ut-table--stripped"
+        >
+          <template v-slot:top>
+            <v-toolbar flat>
+              <v-toolbar-title>Lignes extensibles</v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-switch v-model="singleExpand" label="Extension simple" class="mt-2"></v-switch>
+            </v-toolbar>
+          </template>
+          <template v-slot:expanded-item="{ headers, item }">
+            <td :colspan="headers.length">Plus d'infos sur {{ item.name }}</td>
+          </template>
+        </v-data-table>
+      `,
+      methods: {
+        onItemExpanded: action('itemExpanded')
+      },
+      data () {
+        return {
+          expanded: [],
+          singleExpand: false,
+          headers: [
+            {
+              text: 'Dessert (100g serving)',
+              align: 'start',
+              sortable: false,
+              value: 'name',
+            },
+            { text: 'Calories', value: 'calories' },
+            { text: 'Fat (g)', value: 'fat' },
+            { text: 'Carbs (g)', value: 'carbs' },
+            { text: 'Protein (g)', value: 'protein' },
+            { text: 'Iron (%)', value: 'iron' },
+            { text: '', value: 'data-table-expand' },
+          ],
+          desserts: [
+            {
+              name: 'Frozen Yogurt',
+              calories: 159,
+              fat: 6.0,
+              carbs: 24,
+              protein: 4.0,
+              iron: '1%',
+            },
+            {
+              name: 'Ice cream sandwich',
+              calories: 237,
+              fat: 9.0,
+              carbs: 37,
+              protein: 4.3,
+              iron: '1%',
+            },
+            {
+              name: 'Eclair',
+              calories: 262,
+              fat: 16.0,
+              carbs: 23,
+              protein: 6.0,
+              iron: '7%',
+            },
+            {
+              name: 'Cupcake',
+              calories: 305,
+              fat: 3.7,
+              carbs: 67,
+              protein: 4.3,
+              iron: '8%',
+            },
+          ],
+        }
+      },
+    }}
+  </Story>
+</Preview>
+
+## Pagination
+
+<Preview>
+  <Story name="Pagination" inline={true}>
+    {{
+      components: {
+        VDataTable,
+      },
+      template: `
+        <v-data-table
+          light
+          :headers="headers"
+          :items="items"
+          item-key="name"
+          :options="{itemsPerPage: 5}"
+          class="ut-table ut-table--stripped"
+          @pagination="onPaginationEvent"
+        >
+          <template v-slot:top>
+            <v-toolbar flat>
+              <v-toolbar-title>Pagination</v-toolbar-title>
+            </v-toolbar>
+          </template>
+          <template v-slot:item.date="{ item }">
+            {{ item.date | date('DD/MM/YYYY') }}
+          </template>
+          <template v-slot:item.type="{ item }">
+            <v-icon :class="item.type | iconClass">{{ item.type | icon }}</v-icon>
+            <span>{{ item.type | capitalize }}</span>
+          </template>
+        </v-data-table>
+      `,
+      methods: {
+        onPaginationEvent: action('pagination')
+      },
+      filters: {
+        capitalize(value) {
+          if (!value) return '';
+          value = value.toString();
+          return value.charAt(0).toUpperCase() + value.slice(1);
+        },
+        date(value, format) {
+          return moment(value).format(format);
+        },
+        icon(value) {
+          if (value == 'alert') {
+            return 'mdi-alert-circle';
+          }
+          if (value == 'info') {
+            return 'mdi-information';
+          }
+          if (value == 'check') {
+            return 'mdi-check-circle';
+          }
+          return '';
+        },
+        iconClass(value) {
+          if (value == 'alert') {
+            return 'ut-error';
+          }
+          if (value == 'info') {
+            return 'ut-info';
+          }
+          if (value == 'check') {
+            return 'ut-success';
+          }
+          return '';
+        }
+      },
+      data () {
+        return {
+          headers: [
+            {
+              text: 'Date',
+              value: 'date',
+              align: 'start'
+            },
+            { text: 'Type', value: 'type' },
+          ],
+          items: new Array(40).fill(0).map(() => ({
+            date: new Date(`${random(1,12)}/${random(1,28)}/20${random(10,20)}`),
+            type: sample(['info', 'check', 'alert'])
+          }))
+        }
+      },
+    }}
+  </Story>
+</Preview>

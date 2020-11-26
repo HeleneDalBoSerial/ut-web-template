@@ -1,0 +1,37 @@
+trigger:
+- feat/*
+- fix/*
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '12.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+  displayName: 'install'
+  timeoutInMinutes: 5
+
+- script: |
+    npm i --no-save vue@2.6.11 vuetify@2.2.18
+  displayName: 'install peerDependencies'
+  timeoutInMinutes: 5
+
+- script: |
+    npm run build:lib
+  displayName: 'build lib'
+  timeoutInMinutes: 5
+
+- script: |
+    npm run test:unit
+  displayName: 'Tests unitaires'
+  timeoutInMinutes: 5
+
+- script: |
+    npm run build:storybook
+  displayName: 'build storybook'
+  timeoutInMinutes: 5

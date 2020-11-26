@@ -1,0 +1,33 @@
+@import "colors/variables";
+@import "colors/classes";
+@import "table";
+@import "alert";
+@import "card";
+@import "button";
+@import "utils";
+@import "layout";
+@import "input";
+
+@font-face {
+  font-family: 'Arial';
+  src: url('~@/assets/ArialMT.eot');
+  src: local('Arial'), local('ArialMT'),
+      url('~@/assets/ArialMT.eot?#iefix') format('embedded-opentype'),
+      url('~@/assets/ArialMT.woff2') format('woff2'),
+      url('~@/assets/ArialMT.woff') format('woff'),
+      url('~@/assets/ArialMT.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Arial';
+  src: url('~@/assets/Arial-BoldMT.eot');
+  src: local('Arial Bold'), local('Arial-BoldMT'),
+      url('~@/assets/Arial-BoldMT.eot?#iefix') format('embedded-opentype'),
+      url('~@/assets/Arial-BoldMT.woff2') format('woff2'),
+      url('~@/assets/Arial-BoldMT.woff') format('woff'),
+      url('~@/assets/Arial-BoldMT.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}

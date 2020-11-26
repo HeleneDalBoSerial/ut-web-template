@@ -1,0 +1,18 @@
+@import 'variables';
+
+@for $i from 1 through length($ut-accent-color-list) {
+    .v-icon.ut-#{nth($ut-level-list, $i)} {
+        color: nth($ut-accent-color-list, $i) !important;
+    }
+}
+@for $i from 1 through length($ut-text-color-list) {
+    .ut-text-color-#{$i} {
+        color: nth($ut-text-color-list, $i) !important;
+    }
+}
+
+@for $i from 1 through length($ut-ui-color-list) {
+    .ut-bg-color-#{$i} {
+        background-color: nth($ut-ui-color-list, $i) !important;
+    }
+}

@@ -1,0 +1,42 @@
+@import 'colors/variables';
+
+.ut-alert {
+    border: solid 1px nth($ut-ui-color-list, 4) !important;
+    background-color: nth($ut-ui-color-list, 6) !important;
+
+    &.ut-alert--error {
+        .v-alert__icon {
+            color: $ut-error-color;
+        }
+        .v-alert__border {
+            color: $ut-error-color;
+        }
+    }
+
+    &.ut-alert--warn {
+        .v-alert__icon {
+            color: $ut-warn-color;
+        }
+        .v-alert__border {
+            color: $ut-warn-color;
+        }
+    }
+
+    &.ut-alert--info {
+        .v-alert__icon {
+            color: $ut-info-color;
+        }
+        .v-alert__border {
+            color: $ut-info-color;
+        }
+    }
+
+    .v-alert__border {
+        opacity: 1 !important;
+    }
+    
+    .v-alert__icon {
+        margin-left: 15px;
+        margin-top: 5px;
+    }
+}

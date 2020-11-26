@@ -1,0 +1,27 @@
+.ut-time-picker__counter input {
+  width: 100%;
+  text-align: center;
+}
+
+/* Chrome, Safari, Edge, Opera */
+.ut-time-picker__counter input::-webkit-outer-spin-button,
+.ut-time-picker__counter input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.ut-time-picker__counter input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.ut-time-picker__counter .ut-time-input__separator {
+  position: relative;
+}
+
+.ut-time-picker__counter .ut-time-input__separator:after {
+  content: ":";
+  position: absolute;
+  top: calc(50% - 12px);
+  right: 0;
+}

@@ -1,0 +1,40 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs/blocks";
+import { VExpansionPanels, VExpansionPanel, VExpansionPanelHeader, VExpansionPanelContent } from "vuetify/lib";
+
+<Meta 
+  title="Design System/Composants/Accordéon" 
+  component={VExpansionPanels} 
+  decorators={[() => ({
+    template: '<div class="pa-2 d-flex justify-center"><story/></div>'
+  })]}
+/>
+
+# Accordéon
+
+Veuillez vous référer à la [documentation](https://vuetifyjs.com/en/components/expansion-panels/) complète de Vuetify
+
+<Preview>
+  <Story name="Basique" inline={true}>
+    {{
+      components: { 
+        VExpansionPanels, 
+        VExpansionPanel, 
+        VExpansionPanelHeader, 
+        VExpansionPanelContent 
+      },
+      template: `
+      <v-expansion-panels>
+        <v-expansion-panel
+          v-for="(item,i) in 5"
+          :key="i"
+        >
+          <v-expansion-panel-header>Item</v-expansion-panel-header>
+          <v-expansion-panel-content>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+      `,
+    }}
+  </Story>
+</Preview>

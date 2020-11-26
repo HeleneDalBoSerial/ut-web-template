@@ -1,0 +1,35 @@
+.ut-app-menu__title {
+  text-transform: capitalize;
+}
+
+.ut-app-menu__app-list {
+  > .row {
+    max-width: 300px;
+    > .col {
+      max-width: 120px;
+    }
+  }
+}
+
+.v-navigation-drawer__content {
+  .ut-app-menu {
+    height: 100%;
+  }
+}
+
+.ut-app-menu__user {
+  padding: 4px 16px;
+  text-transform: uppercase;
+
+  .ut-app-menu__user__username {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .v-btn {
+    margin-right: -12px;
+    height: 48px;
+    width: 48px;
+  }
+}

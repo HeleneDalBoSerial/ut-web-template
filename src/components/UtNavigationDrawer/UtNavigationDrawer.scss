@@ -1,0 +1,31 @@
+@import '../../styles/colors/variables';
+
+.ut-navigation-drawer {
+    overflow: visible !important;
+
+    .ut-navigation-drawer__toggle {
+        position: absolute !important;
+        right: -20px;
+    }
+}
+
+.ut-navigation-drawer__float-button {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin: 0 16px 16px 0;
+    z-index: 1;
+}
+
+.ut-navigation-drawer--dialog__content {
+    height: 100%;
+    background-color: white;
+}
+
+.ut-navigation-drawer__header,
+.ut-navigation-drawer--dialog__header {
+    color: nth($ut-text-color-list, 1);
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 23px;
+}
